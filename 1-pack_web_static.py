@@ -12,7 +12,7 @@ def do_pack():
             datetime.utcnow().year, datetime.utcnow().month,
             datetime.utcnow().day, datetime.utcnow().hour,
             datetime.utcnow().minute, datetime.utcnow().second)
-    result = local("tar -cvf {} web_static".format(file))
+    result = local("tar -cvzf {} web_static".format(file))
     if result.failed:
         return None
     else:
