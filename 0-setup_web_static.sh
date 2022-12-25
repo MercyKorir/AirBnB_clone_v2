@@ -14,7 +14,6 @@ chown -R ubuntu:ubuntu /data/
 printf %s "server {
 	listen 80 default_server;
 	listen [::]:80 default_server;
-	add_header X-Served-By $HOSTNAME;
 
 	root /var/www/html;
 	index index.html;
@@ -23,5 +22,5 @@ printf %s "server {
 		alias /data/web_static/current/;
 		index index.html;
 	}
-}"
+}" > /etc/nginx/sites-available/default
 service nginx restart
