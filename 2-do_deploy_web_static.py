@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 # This Fabric Script generates a .tgz archive.
-import os
-import sys
-from fabric.api import local, env
+import os.path
+from fabric.api import env, run, put
 from datetime import datetime
 
 
@@ -17,7 +16,7 @@ def do_deploy(archive_path):
         True on sucess
         False on non existent file path
     """
-    if os.isfile(archive_path) is False:
+    if os.path.isfile(archive_path) is False:
         return False
     split_path = archive_path.split("/")
     archive_name = split_path[-1]
