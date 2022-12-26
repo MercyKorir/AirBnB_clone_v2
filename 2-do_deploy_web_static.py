@@ -7,7 +7,8 @@ from datetime import datetime
 
 
 env.hosts = ['100.25.199.87', '54.144.223.92']
-env.user = sys.argv
+
+
 def do_deploy(archive_path):
     """Distributes archive to server
     Args:
@@ -23,10 +24,13 @@ def do_deploy(archive_path):
     res1 = put(archive_path, "/tmp/{}".format(archive_name))
     split_arch_name = archive_name.split(".")
     name_min_exten = split_arch_name[0]
-    res2 = run("tar -zxvf /tmp/{} -C /data/web_static/releases/{}/".format(archive_name, name_min_exten))
+    res2 = run("tar -zxvf /tmp/{} -C /data/web_static/releases/{}/".format(
+        archive_name, name_min_exten))
     res3 = run("rm /tmp/{}".format(archive_name))
     res4 = run("rm /data/web_static/current")
-    res5 = run("ln -s -Ff /data/web_static/releases/{}/ /data/web_static/current".format(name_min_exten))
+    link_name = "/data/web_static/current"
+    res5 = run("ln -s -Ff /data/web_static/releases/{}/ {}".format(
+        name_min_exten, link_name))
     if res1.failed:
         return False
     if res2.failed:
